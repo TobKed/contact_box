@@ -1,2 +1,2 @@
 # contact_box
-Contact box application written ind Django
+Contact box application written in Django
