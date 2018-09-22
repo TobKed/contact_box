@@ -126,3 +126,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/linux,windows,pycharm+all
 
 env_vars
+src/contacts/migrations/*
