@@ -24,9 +24,9 @@ class Address(models.Model):
 class Person(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
-    description = models.TextField(null=True)
-    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
-    groups = models.ManyToManyField(ContactGroup, null=True)
+    description = models.TextField(null=True, blank=True)
+    address = models.ForeignKey(Address, null=True,blank=True, on_delete=models.SET_NULL)
+    groups = models.ManyToManyField(ContactGroup, null=True, blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
