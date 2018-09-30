@@ -135,3 +135,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'contacts-home'
 LOGIN_URL = 'login'
 
+# console backend  # https://docs.djangoproject.com/en/2.1/topics/email/#configuring-email-for-development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
