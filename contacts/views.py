@@ -15,6 +15,5 @@ class UserContactsListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        print('TEST', self.request.user)
         user = get_object_or_404(User, username=self.request.user)
         return Person.objects.filter(creator=user.profile).order_by('last_name')
