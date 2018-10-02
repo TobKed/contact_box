@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Person
 
 
@@ -8,9 +9,9 @@ def home(request):
     return render(request, 'contacts/base.html')
 
 
-class UserContactsListView(ListView):
+class UserContactsListView(LoginRequiredMixin, ListView):
     model = Person
-    template_name = 'contacts/home.html'
+    template_name = 'contacts/user-contacts.html'
     context_object_name = 'persons'
     paginate_by = 5
 
