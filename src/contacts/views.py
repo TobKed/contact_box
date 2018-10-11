@@ -12,9 +12,8 @@ def home(request):
     return render(request, 'contacts/base.html')
 
 
-class UserContactsListView(LoginRequiredMixin, ListView):
+class PersonListView(LoginRequiredMixin, ListView):
     model = Person
-    template_name = 'contacts/contacts.html'
     context_object_name = 'persons'
     paginate_by = 5
 

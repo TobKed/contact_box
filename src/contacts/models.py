@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import Profile
+from django.urls import reverse
 
 
 class ContactGroup(models.Model):
@@ -31,6 +32,9 @@ class Person(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_absolute_url(self):
+        return reverse("person-detail", kwargs={"pk": self.pk})
 
 
 class PhoneNumber(models.Model):
