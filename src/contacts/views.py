@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
-    DetailView
+    DetailView,
+    CreateView
 )
 from .models import Person
 
@@ -24,3 +25,13 @@ class PersonListView(LoginRequiredMixin, ListView):
 
 class PersonDetailView(DetailView):
     model = Person
+
+
+class PersonCreateView(CreateView):
+    model = Person
+    fields = ['first_name', 'last_name', 'description']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.creator_id = self.request.user.pk
+        return super().form_valid(form)
