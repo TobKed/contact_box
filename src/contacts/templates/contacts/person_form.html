@@ -8,8 +8,27 @@
                 <legend class="border-bottom mb-4">Contact</legend>
                 {{ form|crispy }}
             </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button>
+
+            <fieldset class="col-md-6">
+                <legend>Phone Numbers</legend>
+                {{ phone_form.management_form }}
+                {{ phone_form.non_form_errors }}
+                {% for form in phone_form %}
+
+                    {{ form.id }}
+                    <div class="inline {{ phone_form.prefix }} mb-2">
+                        <div class="card">
+                            <div  class="card-body">
+                                <small class="text-muted">Phone Number</small>
+                                {{ form|crispy }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+
+            <div class="form-group mt-2">
+                <button class="btn btn-outline-info" type="submit">Save</button>
             </div>
         </form>
     </div>

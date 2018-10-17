@@ -8,6 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from .forms import PhoneFormSet
 from .models import Person
 
 
@@ -38,6 +39,17 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 class PersonCreateView(LoginRequiredMixin, CreateView):
     model = Person
     fields = ['first_name', 'last_name', 'description']
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        phone_form = PhoneFormSet()
+        return self.render_to_response(self.get_context_data(form=form, phone_form=phone_form))
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -70,3 +82,5 @@ class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user.pk == person.creator_id:
             return True
         return False
+
+
