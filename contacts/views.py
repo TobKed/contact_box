@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
     DetailView,
@@ -24,11 +24,27 @@ class PersonListView(LoginRequiredMixin, ListView):
         return Person.objects.filter(creator=user.profile).order_by('last_name')
 
 
-class PersonDetailView(DetailView):
+class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Person
 
+    def test_func(self):
+        person = self.get_object()
+        if self.request.user.pk == person.creator_id:
+            return True
+        return False
 
-class PersonCreateView(CreateView):
+
+class PersonCreateView(LoginRequiredMixin, CreateView):
+    model = Person
+    fields = ['first_name', 'last_name', 'description']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.creator_id = self.request.user.pk
+        return super().form_valid(form)
+
+
+class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
     fields = ['first_name', 'last_name', 'description']
 
@@ -37,12 +53,8 @@ class PersonCreateView(CreateView):
         self.object.creator_id = self.request.user.pk
         return super().form_valid(form)
 
-
-class PersonUpdateView(UpdateView):
-    model = Person
-    fields = ['first_name', 'last_name', 'description']
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.creator_id = self.request.user.pk
-        return super().form_valid(form)
+    def test_func(self):
+        person = self.get_object()
+        if self.request.user.pk == person.creator_id:
+            return True
+        return False
