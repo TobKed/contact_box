@@ -33,21 +33,13 @@
                                     <td>{{ person.email_set.all }}</td>
                                     <td>{{ person.phonenumber_set.all }}</td>
                                     <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
-                                                    data-target="#edit"><span class="fas fa-user-edit fa-xs"></span>
-                                            </button>
-                                        </p>
+                                        <a href="{% url 'person-update' person.id %}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
                                     </td>
                                     <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
-                                                    data-target="#delete"><span class="fas fa-trash-alt fa-xs"></span>
-                                            </button>
-                                        </p>
+                                        <a href="{% url 'person-detail' person.id %}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete"><span class="fas fa-trash-alt fa-xs"></span></a>
                                     </td>
                                     <td>
-                                        <a href="{% url 'person-detail' person.id %}" class="btn btn-info btn-xs"><span class="fas fa-info xs"></span></a>
+                                        <a href="{% url 'person-detail' person.id %}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Info"><span class="fas fa-info xs"></span></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -76,9 +68,9 @@
                         {% endif %}
                     {% endif %}
                     <!-- PAGINATOR END -->
-                </div>
-                    <a class="btn btn-info mb-4" href="{% url 'person-new' %}">New Contact</a>
-                <div>
+                    </div>
+                        <a class="btn btn-info mb-4" href="{% url 'person-new' %}">New Contact</a>
+                    <div>
 
                 </div>
 
