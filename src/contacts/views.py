@@ -6,6 +6,7 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
+    DeleteView,
 )
 from .models import Person
 
@@ -52,6 +53,17 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         self.object = form.save(commit=False)
         self.object.creator_id = self.request.user.pk
         return super().form_valid(form)
+
+    def test_func(self):
+        person = self.get_object()
+        if self.request.user.pk == person.creator_id:
+            return True
+        return False
+
+
+class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Person
+    success_url = '/'
 
     def test_func(self):
         person = self.get_object()
