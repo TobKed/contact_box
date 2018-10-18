@@ -9,7 +9,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from .forms import PhoneFormSet
+from .forms import PhoneFormSet, PhoneFormSetFunc
 from .models import Person
 
 
@@ -92,10 +92,66 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
     fields = ['first_name', 'last_name', 'description']
 
-    def form_valid(self, form):
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        # TODO FIXME
+        PhoneFormSet = PhoneFormSetFunc(extra=4)
+        phone_form = PhoneFormSet(initial=[
+             {'number': 123,
+              'type': "dom",},
+            {'number': 123,
+             'type': "dome", },
+            {'number': 123,
+             'type': "dom", },
+            {'number': 123,
+             'type': "dom", },
+            ])
+
+        return self.render_to_response(
+            self.get_context_data(
+                    form=form,
+                    phone_form=phone_form
+            ))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        phone_form = PhoneFormSet(self.request.POST)
+        if form.is_valid() and phone_form.is_valid():
+            return self.form_valid(form, phone_form)
+        else:
+            return self.form_invalid(form, phone_form)
+
+    def form_valid(self, form, phone_form):
         self.object = form.save(commit=False)
         self.object.creator_id = self.request.user.pk
-        return super().form_valid(form)
+        self.object = form.save()
+        phone_form.instance = self.object
+        phone_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, phone_form,):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  phone_form=phone_form))
 
     def test_func(self):
         person = self.get_object()
