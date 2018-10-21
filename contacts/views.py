@@ -92,7 +92,6 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
     fields = ['first_name', 'last_name', 'description']
 
-
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests and instantiates blank versions of the form
@@ -103,17 +102,7 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form = self.get_form(form_class)
 
         # TODO FIXME
-        PhoneFormSet = PhoneFormSetFunc(extra=4)
-        phone_form = PhoneFormSet(initial=[
-             {'number': 123,
-              'type': "dom",},
-            {'number': 123,
-             'type': "dome", },
-            {'number': 123,
-             'type': "dom", },
-            {'number': 123,
-             'type': "dom", },
-            ])
+        phone_form = PhoneFormSet(instance=self.object)
 
         return self.render_to_response(
             self.get_context_data(
@@ -127,7 +116,7 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        self.object = None
+        self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         phone_form = PhoneFormSet(self.request.POST)
