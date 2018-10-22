@@ -1,9 +1,6 @@
 from django.forms.models import inlineformset_factory
-from .models import Person, PhoneNumber
+from .models import Person, PhoneNumber, Email
 
 
 PhoneFormSet = inlineformset_factory(Person, PhoneNumber, fields=['number', 'type'], extra=1)
-
-
-def PhoneFormSetFunc(extra=1, *args, **kwargs):
-    return inlineformset_factory(Person, PhoneNumber, fields=['number', 'type'], extra=extra, *args, **kwargs)
+EmailFormSet = inlineformset_factory(Person, Email, fields=['address', 'type'], extra=1)

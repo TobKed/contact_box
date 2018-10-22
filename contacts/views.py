@@ -9,7 +9,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from .forms import PhoneFormSet, PhoneFormSetFunc
+from .forms import PhoneFormSet, EmailFormSet
 from .models import Person
 
 
