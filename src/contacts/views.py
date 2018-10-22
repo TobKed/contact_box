@@ -116,8 +116,7 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        phone_form = PhoneFormSet(self.request.POST)
-
+        phone_form = PhoneFormSet(self.request.POST, instance=self.object)
         if form.is_valid() and phone_form.is_valid():
             return self.form_valid(form, phone_form)
         else:
@@ -127,7 +126,6 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         self.object = form.save(commit=False)
         self.object.creator_id = self.request.user.pk
         self.object = form.save()
-        # phone_form.instance = self.object
         phone_form.instance = self.object
         phone_form.save()
         return HttpResponseRedirect(self.get_success_url())
@@ -137,8 +135,6 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
-        # TODO FIXME
-        print(phone_form.errors)
         return self.render_to_response(
             self.get_context_data(form=form,
                                   phone_form=phone_form))
