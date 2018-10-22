@@ -9,7 +9,7 @@
                 {{ form|crispy }}
             </fieldset>
 
-            <fieldset class="col-md-6">
+            <fieldset class="col-md-6 mb-4">
                 <legend>Phone Numbers</legend>
                 {{ phone_form.management_form }}
                 {{ phone_form.non_form_errors }}
@@ -27,7 +27,7 @@
                 {% endfor %}
             </fieldset>
 
-            <fieldset class="col-md-6">
+            <fieldset class="col-md-6 mb-4">
                 <legend>Emails</legend>
                 {{ email_form.management_form }}
                 {{ email_form.non_form_errors }}
