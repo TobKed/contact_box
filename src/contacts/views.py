@@ -50,10 +50,12 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         phone_form = PhoneFormSet()
+        email_form = EmailFormSet()
         return self.render_to_response(
             self.get_context_data(
                     form=form,
-                    phone_form=phone_form))
+                    phone_form=phone_form,
+                    email_form=email_form))
 
     def post(self, request, *args, **kwargs):
         """
@@ -65,27 +67,31 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         phone_form = PhoneFormSet(self.request.POST)
-        if form.is_valid() and phone_form.is_valid():
-            return self.form_valid(form, phone_form)
+        email_form = EmailFormSet(self.request.POST)
+        if form.is_valid() and phone_form.is_valid() and email_form.is_valid():
+            return self.form_valid(form, phone_form, email_form)
         else:
-            return self.form_invalid(form, phone_form)
+            return self.form_invalid(form, phone_form, email_form)
 
-    def form_valid(self, form, phone_form):
+    def form_valid(self, form, phone_form, email_form):
         self.object = form.save(commit=False)
         self.object.creator_id = self.request.user.pk
         self.object = form.save()
         phone_form.instance = self.object
         phone_form.save()
+        email_form.instance = self.object
+        email_form.save()
         return HttpResponseRedirect(self.get_success_url())
 
-    def form_invalid(self, form, phone_form):
+    def form_invalid(self, form, phone_form, email_form):
         """
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  phone_form=phone_form))
+                                  phone_form=phone_form,
+                                  email_form=email_form))
 
 
 class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -101,10 +107,12 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         phone_form = PhoneFormSet(instance=self.object)
+        email_form = EmailFormSet(instance=self.object)
         return self.render_to_response(
             self.get_context_data(
                     form=form,
-                    phone_form=phone_form
+                    phone_form=phone_form,
+                    email_form=email_form
             ))
 
     def post(self, request, *args, **kwargs):
@@ -117,27 +125,31 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         phone_form = PhoneFormSet(self.request.POST, instance=self.object)
-        if form.is_valid() and phone_form.is_valid():
-            return self.form_valid(form, phone_form)
+        email_form = EmailFormSet(self.request.POST, instance=self.object)
+        if form.is_valid() and phone_form.is_valid() and email_form.is_valid():
+            return self.form_valid(form, phone_form, email_form)
         else:
-            return self.form_invalid(form, phone_form)
+            return self.form_invalid(form, phone_form, email_form)
 
-    def form_valid(self, form, phone_form):
+    def form_valid(self, form, phone_form, email_form):
         self.object = form.save(commit=False)
         self.object.creator_id = self.request.user.pk
         self.object = form.save()
         phone_form.instance = self.object
         phone_form.save()
+        email_form.instance = self.object
+        email_form.save()
         return HttpResponseRedirect(self.get_success_url())
 
-    def form_invalid(self, form, phone_form):
+    def form_invalid(self, form, phone_form, email_form):
         """
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  phone_form=phone_form))
+                                  phone_form=phone_form,
+                                  email_form=email_form))
 
     def test_func(self):
         person = self.get_object()

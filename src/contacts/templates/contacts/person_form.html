@@ -27,6 +27,24 @@
                 {% endfor %}
             </fieldset>
 
+            <fieldset class="col-md-6">
+                <legend>Emails</legend>
+                {{ email_form.management_form }}
+                {{ email_form.non_form_errors }}
+                {% for form in email_form %}
+
+                    {{ form.id }}
+                    <div class="inline {{ email_form.prefix }} mb-2">
+                        <div class="card">
+                            <div  class="card-body">
+                                <small class="text-muted">Email</small>
+                                {{ form|crispy }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+
             <div class="form-group mt-2">
                 <button class="btn btn-outline-info" type="submit">Save</button>
             </div>
