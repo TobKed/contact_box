@@ -5,7 +5,7 @@
             <h2 class="article-title">{{ object.first_name }} {{ object.last_name }}</h2>
             <p class="article-content">Description: {{ object.description }}</p>
             <p class="article-content">Adress: {{ object.address }}</p>
-            <p class="article-content">Phones: {{ object.phonenumber_set.all }}</p>
+            <p class="article-content">Phones: <ul>{{ object.phonenumber_set.all|unordered_list }} </ul> </p>
             <p class="article-content">Emails: {{ object.email_set.all }}</p>
             <div class="article-metadata">
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{%  url 'person-update' person.id %}">Update</a>
