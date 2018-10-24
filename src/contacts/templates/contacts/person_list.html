@@ -1,4 +1,5 @@
 {% extends "contacts/base.html" %}
+{% load contacts_extras %}
 {% block content %}
 
     <div class="container">
@@ -30,8 +31,8 @@
                                     <td>{{ person.first_name }}</td>
                                     <td>{{ person.last_name }}</td>
                                     <td>{{ person.address }}</td>
-                                    <td>{{ person.email_set.all }}</td>
-                                    <td>{{ person.phonenumber_set.all }}</td>
+                                    <td>{{ person.email_set.all|queryset_to_list }}</td>
+                                    <td>{{ person.phonenumber_set.all|queryset_to_list }}</td>
                                     <td>
                                         <a href="{% url 'person-update' person.id %}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
                                     </td>
@@ -48,6 +49,7 @@
                     </table>
 
                     <div class="clearfix"></div>
+
                     <!-- PAGINATOR START-->
                     {% if is_paginated %}
                         {% if page_obj.has_previous %}
@@ -68,42 +70,16 @@
                         {% endif %}
                     {% endif %}
                     <!-- PAGINATOR END -->
+
                     </div>
                         <a class="btn btn-info mb-4" href="{% url 'person-new' %}">New Contact</a>
                     <div>
 
                 </div>
 
-            </div>
-        </div>
-    </div>
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>  <!-- end containter -->
 
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span
-                            class="fas fa-times-cricle" aria-hidden="true"></span></button>
-                    <h4 class="modal-title custom_align" id="Heading">Delete contact</h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="alert alert-danger"><span class="fas fa-exclamation fa-2x mr-2"></span> Are you sure
-                        you want to delete this contact?
-                    </div>
-
-                </div>
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-success"><span class="fas fa-check-circle"></span> Yes
-                    </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><span
-                            class="fas fa-times-circle"></span> No
-                    </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 
 {% endblock content %}
