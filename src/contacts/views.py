@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView,
 )
 from .forms import PhoneFormSet, EmailFormSet
-from .models import Person, Address
+from .models import Person, Address, ContactGroup
 
 
 def home(request):
@@ -39,11 +39,12 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
 class PersonCreateView(LoginRequiredMixin, CreateView):
     model = Person
-    fields = ['first_name', 'last_name', 'description', 'address']
+    fields = ['first_name', 'last_name', 'description', 'address', 'groups']
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
         form.fields['address'].queryset = Address.objects.filter(creator=self.request.user.pk)
+        form.fields['groups'].queryset = ContactGroup.objects.filter(creator=self.request.user.pk)
         return form
 
     def get(self, request, *args, **kwargs):
@@ -101,11 +102,12 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
 
 class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
-    fields = ['first_name', 'last_name', 'description', 'address']
+    fields = ['first_name', 'last_name', 'description', 'address', 'groups']
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
         form.fields['address'].queryset = Address.objects.filter(creator=self.request.user.pk)
+        form.fields['groups'].queryset = ContactGroup.objects.filter(creator=self.request.user.pk)
         return form
 
     def get(self, request, *args, **kwargs):
