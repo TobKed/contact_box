@@ -17,6 +17,7 @@ class Address(models.Model):
     street = models.CharField(max_length=64, null=True)
     building_number = models.IntegerField(null=True)
     flat_number = models.IntegerField(null=True)
+    creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.city} {self.street} {self.building_number} {self.flat_number}"
