@@ -9,41 +9,43 @@
                 {{ form|crispy }}
             </fieldset>
 
-            <fieldset class="col-md-6 mb-4">
-                <legend>Phone Numbers</legend>
-                {{ phone_form.management_form }}
-                {{ phone_form.non_form_errors }}
-                {% for form in phone_form %}
+            <div class="row">
+                <fieldset class="col-md-6 mb-4">
+                    <legend>Phone Numbers</legend>
+                    {{ phone_form.management_form }}
+                    {{ phone_form.non_form_errors }}
+                    {% for form in phone_form %}
 
-                    {{ form.id }}
-                    <div class="inline {{ phone_form.prefix }} mb-2">
-                        <div class="card">
-                            <div  class="card-body">
-                                <small class="text-muted">Phone Number</small>
-                                {{ form|crispy }}
+                        {{ form.id }}
+                        <div class="inline {{ phone_form.prefix }} mb-2">
+                            <div class="card">
+                                <div  class="card-body">
+                                    <small class="text-muted">Phone Number</small>
+                                    {{ form|crispy }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </fieldset>
+                    {% endfor %}
+                </fieldset>
 
-            <fieldset class="col-md-6 mb-4">
-                <legend>Emails</legend>
-                {{ email_form.management_form }}
-                {{ email_form.non_form_errors }}
-                {% for form in email_form %}
+                <fieldset class="col-md-6 mb-4">
+                    <legend>Emails</legend>
+                    {{ email_form.management_form }}
+                    {{ email_form.non_form_errors }}
+                    {% for form in email_form %}
 
-                    {{ form.id }}
-                    <div class="inline {{ email_form.prefix }} mb-2">
-                        <div class="card">
-                            <div  class="card-body">
-                                <small class="text-muted">Email</small>
-                                {{ form|crispy }}
+                        {{ form.id }}
+                        <div class="inline {{ email_form.prefix }} mb-2">
+                            <div class="card">
+                                <div  class="card-body">
+                                    <small class="text-muted">Email</small>
+                                    {{ form|crispy }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </fieldset>
+                    {% endfor %}
+                </fieldset>
+            </div>
 
             <div class="form-group mt-2">
                 <button class="btn btn-outline-info" type="submit">Save</button>
