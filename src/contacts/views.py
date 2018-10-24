@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView,
 )
 from .forms import PhoneFormSet, EmailFormSet
-from .models import Person
+from .models import Person, Address
 
 
 def home(request):
@@ -39,7 +39,12 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
 class PersonCreateView(LoginRequiredMixin, CreateView):
     model = Person
-    fields = ['first_name', 'last_name', 'description']
+    fields = ['first_name', 'last_name', 'description', 'address']
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields['address'].queryset = Address.objects.filter(creator=self.request.user.pk)
+        return form
 
     def get(self, request, *args, **kwargs):
         """
@@ -96,7 +101,12 @@ class PersonCreateView(LoginRequiredMixin, CreateView):
 
 class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
-    fields = ['first_name', 'last_name', 'description']
+    fields = ['first_name', 'last_name', 'description', 'address']
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields['address'].queryset = Address.objects.filter(creator=self.request.user.pk)
+        return form
 
     def get(self, request, *args, **kwargs):
         """
