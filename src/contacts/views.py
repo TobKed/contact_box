@@ -24,7 +24,19 @@ class PersonListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
-        return Person.objects.filter(creator=user.profile).order_by('last_name')
+        orderby = self.request.GET.get('orderby', 'last_name')
+        order = self.request.GET.get('order', 'asc')
+        order = {'asc': '', 'desc': '-'}.get(order, '')
+        return Person.objects.filter(creator=user.profile).order_by(order+orderby)
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        params = {
+            'orderby': self.request.GET.get('orderby', 'last_name'),
+            'order': self.request.GET.get('order', 'asc')
+        }
+        context_data.update(params)
+        return context_data
 
 
 class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
