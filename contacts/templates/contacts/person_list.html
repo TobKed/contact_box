@@ -13,8 +13,38 @@
 
                         <thead>
                             <th>Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>First Name
+                                <a href="?page={{ page_obj.number }}&orderby=first_name&order=asc" class="fas fa-sort-alpha-down ml-2"
+                                    {% if orderby == 'first_name' and order == 'asc' %}
+                                        style="color: black"
+                                    {% else %}
+                                        style="color: gray"
+                                    {% endif %}>
+                                </a>
+                                <a href="?page={{ page_obj.number }}&orderby=first_name&order=desc" class="fas fa-sort-alpha-up ml-2"
+                                   {% if orderby == 'first_name' and order == 'desc' %}
+                                        style="color: black"
+                                    {% else %}
+                                        style="color: gray"
+                                    {% endif %}>
+                                </a>
+                            </th>
+                            <th>Last Name
+                                <a href="?page={{ page_obj.number }}&orderby=last_name&order=asc" class="fas fa-sort-alpha-down ml-2""
+                                    {% if orderby == 'last_name' and order == 'asc' %}
+                                        style="color: black"
+                                    {% else %}
+                                        style="color: gray"
+                                    {% endif %}>
+                                </a>
+                                <a href="?page={{ page_obj.number }}&orderby=last_name&order=desc" class="fas fa-sort-alpha-up ml-2""
+                                    {% if orderby == 'last_name' and order == 'desc' %}
+                                        style="color: black"
+                                    {% else %}
+                                        style="color: gray"
+                                    {% endif %}>
+                                </a>
+                            </th>
                             <th>Address</th>
                             <th>Email</th>
                             <th>Phone</th>
@@ -28,7 +58,7 @@
                             {% for person in persons %}
                                 <tr>
                                     <td>{{ person.pk }} </td>
-                                    <td>{{ person.first_name }}</td>
+                                    <td>{{ person.first_name }} </td>
                                     <td>{{ person.last_name }}</td>
                                     <td>{{ person.address }}</td>
                                     <td>{{ person.email_set.all|queryset_to_list }}</td>
@@ -53,20 +83,20 @@
                     <!-- PAGINATOR START-->
                     {% if is_paginated %}
                         {% if page_obj.has_previous %}
-                            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            <a class="btn btn-outline-info mb-4" href="?page=1&orderby={{ orderby }}&order={{ order }}">First</a>
+                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&orderby={{ orderby }}&order={{ order }}">Previous</a>
                         {% endif %}
                         {% for num in page_obj.paginator.page_range %}
                             {% if page_obj.number == num %}
-                                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                                <a class="btn btn-info mb-4" href="?page={{ num }}&orderby={{ orderby }}&order={{ order }}">{{ num }}</a>
                             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                                <a class="btn btn-outline-info mb-4" href="?page={{ num }}&orderby={{ orderby }}&order={{ order }}">{{ num }}</a>
                             {% endif %}
                         {% endfor %}
                         {% if page_obj.has_next %}
-                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}&orderby={{ orderby }}&order={{ order }}">Next</a>
                             <a class="btn btn-outline-info mb-4"
-                               href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                               href="?page={{ page_obj.paginator.num_pages }}&orderby={{ orderby }}&order={{ order }}">Last</a>
                         {% endif %}
                     {% endif %}
                     <!-- PAGINATOR END -->
