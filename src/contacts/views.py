@@ -11,6 +11,7 @@ from django.views.generic import (
 )
 from .forms import PhoneFormSet, EmailFormSet
 from .models import Person, Address, ContactGroup
+from django.db.models import Count
 
 
 def home(request):
@@ -193,3 +194,25 @@ class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
+class AddressListView(LoginRequiredMixin, ListView):
+    model = Address
+    context_object_name = 'addresses'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.request.user)
+        orderby = self.request.GET.get('orderby', 'city')
+        order = self.request.GET.get('order', 'asc')
+        order = {'asc': '', 'desc': '-'}.get(order, '')
+        return Address.objects.filter(creator=user.profile).order_by(order+orderby).annotate(
+            inhabitants=Count('person', distinct=True)
+            )
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        params = {
+            'orderby': self.request.GET.get('orderby', 'last_name'),
+            'order': self.request.GET.get('order', 'asc')
+        }
+        context_data.update(params)
+        return context_data
