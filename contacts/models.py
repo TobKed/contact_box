@@ -22,6 +22,9 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.city} {self.street} {self.building_number} {self.flat_number}"
 
+    def get_absolute_url(self):
+        return reverse("address-detail", kwargs={"pk": self.pk})
+
 
 class Person(models.Model):
     first_name = models.CharField(max_length=64)

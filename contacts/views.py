@@ -244,3 +244,31 @@ class AddressDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user.pk == person.creator_id:
             return True
         return False
+
+
+class AddressCreateView(LoginRequiredMixin, CreateView):
+    model = Address
+    fields = ['city', 'street', 'building_number', 'flat_number']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.creator_id = self.request.user.pk
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class AddressUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Address
+    fields = ['city', 'street', 'building_number', 'flat_number']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.creator_id = self.request.user.pk
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def test_func(self):
+        person = self.get_object()
+        if self.request.user.pk == person.creator_id:
+            return True
+        return False
