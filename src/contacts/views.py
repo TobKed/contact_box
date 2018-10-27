@@ -216,3 +216,31 @@ class AddressListView(LoginRequiredMixin, ListView):
         }
         context_data.update(params)
         return context_data
+
+
+class AddressDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Address
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        context_data.update({
+            'inhabitants': Person.objects.filter(address=self.get_object())
+        })
+        return context_data
+
+    def test_func(self):
+        address = self.get_object()
+        if self.request.user.pk == address.creator_id:
+            return True
+        return False
+
+
+class AddressDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Address
+    success_url = '/'
+
+    def test_func(self):
+        person = self.get_object()
+        if self.request.user.pk == person.creator_id:
+            return True
+        return False

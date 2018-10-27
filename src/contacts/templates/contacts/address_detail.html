@@ -1,0 +1,26 @@
+{% extends "contacts/base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+            <h2 class="article-title">{{ object }}</h2>
+            <p class="article-content">City: {{ object.city }}</p>
+            <p class="article-content">Street: {{ object.street }}</p>
+            <p class="article-content">Building number: {{ object.building_number }}</p>
+            <p class="article-content">Flat number: {{ object.flat_number }}</p>
+            <p class="article-content">Inhabitants ({{ inhabitants.count }}):
+                <ul>
+                    {% for person in inhabitants %}
+                        <li>{{ person }}</li>
+                    {% empty %}
+                        <li>No inhabitants</li>
+                    {% endfor %}
+                </ul>
+            </p>
+
+            <div class="article-metadata">
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="#">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{%  url 'address-delete' object.id %}">Delete</a>
+            </div>
+        </div>
+    </article>
+{% endblock content %}
