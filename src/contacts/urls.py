@@ -8,7 +8,9 @@ from .views import (
     PersonDeleteView,
     AddressListView,
     AddressDetailView,
-    AddressDeleteView
+    AddressCreateView,
+    AddressUpdateView,
+    AddressDeleteView,
 )
 
 
@@ -21,5 +23,7 @@ urlpatterns = [
     path('person/new/', PersonCreateView.as_view(), name='person-new'),
     path('contacts/address', AddressListView.as_view(), name='address-list'),
     path('contacts/address/<int:pk>/', AddressDetailView.as_view(), name='address-detail'),
-    path('contacts/address//<int:pk>/delete/', AddressDeleteView.as_view(), name='address-delete'),
+    path('contacts/address/<int:pk>/update/', AddressUpdateView.as_view(), name='address-update'),
+    path('contacts/address/<int:pk>/delete/', AddressDeleteView.as_view(), name='address-delete'),
+    path('contacts/address/new/', AddressCreateView.as_view(), name='address-new'),
 ]

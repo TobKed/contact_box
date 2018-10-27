@@ -50,7 +50,7 @@
                                     <td>{{ address.flat_number }}</td>
                                     <td>{{ address.inhabitants }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
+                                        <a href="{%  url 'address-update' address.id %}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
                                     </td>
                                     <td>
                                         <a href="{% url 'address-delete' address.id %}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete"><span class="fas fa-trash-alt fa-xs"></span></a>
