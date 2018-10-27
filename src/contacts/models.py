@@ -5,18 +5,21 @@ from django.urls import reverse
 
 class ContactGroup(models.Model):
     name = models.CharField(max_length=64)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name}"
 
+    def get_absolute_url(self):
+        return reverse("group-detail", kwargs={"pk": self.pk})
+
 
 class Address(models.Model):
     city = models.CharField(max_length=64)
-    street = models.CharField(max_length=64, null=True)
-    building_number = models.IntegerField(null=True)
-    flat_number = models.IntegerField(null=True)
+    street = models.CharField(max_length=64, null=True, blank=True)
+    building_number = models.IntegerField(null=True, blank=True)
+    flat_number = models.IntegerField(null=True, blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):

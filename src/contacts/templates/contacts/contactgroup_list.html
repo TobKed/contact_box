@@ -1,0 +1,68 @@
+{% extends "contacts/base.html" %}
+{% load contacts_extras %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <h4>Groups ({{ page_obj.paginator.count }})</h4>
+                <div type="hidden" id="order-manager" data-orderby="{{ orderby }}" data-order="{{ order }}"></div>
+
+                <div class="table-responsive">
+
+                    <table id="mytable" class="table table-bordred table-striped">
+
+                        <thead>
+                            <th>Id</th>
+                            <th>Name
+                                <a data-orderby="name" data-order="asc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-down ml-2 order"></a>
+                                <a data-orderby="name" data-order="desc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-up order"></a>
+                            </th>
+                            <th>Descripton
+                                <a data-orderby="description" data-order="asc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-down ml-2 order"></a>
+                                <a data-orderby="description" data-order="desc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-up order"></a>
+                            </th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>Details</th>
+                        </thead>
+
+                        <tbody>
+                            {% for group in groups %}
+                                <tr>
+                                    <td>{{ group.pk }} </td>
+                                    <td>{{ group.name }} </td>
+                                    <td>{{ group.description }}</td>
+                                    <td>
+                                        <a href="{%  url 'group-update' group.id %}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'group-delete' group.id %}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete"><span class="fas fa-trash-alt fa-xs"></span></a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'group-detail' group.id %}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Info"><span class="fas fa-info xs"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="clearfix"></div>
+
+                    <!-- PAGINATOR START-->
+                    {% include 'contacts/paginator.html' %}
+                    <!-- PAGINATOR END -->
+
+                    </div>
+                        <a class="btn btn-info mb-4" href="{% url 'group-new' %}">New Group</a>
+                    <div>
+
+                </div>
+
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>  <!-- end containter -->
+
+
+{% endblock content %}
