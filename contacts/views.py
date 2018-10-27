@@ -204,9 +204,9 @@ class AddressListView(LoginRequiredMixin, ListView):
         orderby = self.request.GET.get('orderby', 'city')
         order = self.request.GET.get('order', 'asc')
         order = {'asc': '', 'desc': '-'}.get(order, '')
-        return Address.objects.filter(creator=user.profile).order_by(order+orderby).annotate(
+        return Address.objects.filter(creator=user.profile).annotate(
             inhabitants=Count('person', distinct=True)
-            )
+            ).order_by(order+orderby)
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
