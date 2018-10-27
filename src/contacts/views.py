@@ -273,7 +273,7 @@ class AddressUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-#################################################################3
+
 class ContactGroupListView(LoginRequiredMixin, ListView):
     model = ContactGroup
     context_object_name = 'groups'

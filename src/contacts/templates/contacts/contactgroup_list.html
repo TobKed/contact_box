@@ -23,6 +23,10 @@
                                 <a data-orderby="description" data-order="asc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-down ml-2 order"></a>
                                 <a data-orderby="description" data-order="desc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-up order"></a>
                             </th>
+                            <th>Members
+                                <a data-orderby="members" data-order="asc" href="?page={{ page_obj.number }}" class="fas fa-sort-numeric-down ml-2 order"></a>
+                                <a data-orderby="members" data-order="desc" href="?page={{ page_obj.number }}" class="fas fa-sort-numeric-up order"></a>
+                            </th>
                             <th>Edit</th>
                             <th>Delete</th>
                             <th>Details</th>
@@ -34,6 +38,7 @@
                                     <td>{{ group.pk }} </td>
                                     <td>{{ group.name }} </td>
                                     <td>{{ group.description }}</td>
+                                    <td>{{ group.members }}</td>
                                     <td>
                                         <a href="{%  url 'group-update' group.id %}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
                                     </td>
