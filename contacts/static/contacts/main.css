@@ -30,3 +30,15 @@ ul {
   font-weight: 500;
 }
 
+.order {
+  color: #b1bbc1;
+}
+
+.order:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.order-active {
+  color: black;
+}

@@ -7,6 +7,7 @@
 
             <div class="col-md-12">
                 <h4>Contacts ({{ page_obj.paginator.count }})</h4>
+                <div type="hidden" id="order-manager" data-orderby="{{ orderby }}" data-order="{{ order }}"></div>
                 <div class="table-responsive">
 
                     <table id="mytable" class="table table-bordred table-striped">
@@ -14,36 +15,12 @@
                         <thead>
                             <th>Id</th>
                             <th>First Name
-                                <a href="?page={{ page_obj.number }}&orderby=first_name&order=asc" class="fas fa-sort-alpha-down ml-2"
-                                    {% if orderby == 'first_name' and order == 'asc' %}
-                                        style="color: black"
-                                    {% else %}
-                                        style="color: gray"
-                                    {% endif %}>
-                                </a>
-                                <a href="?page={{ page_obj.number }}&orderby=first_name&order=desc" class="fas fa-sort-alpha-up ml-2"
-                                   {% if orderby == 'first_name' and order == 'desc' %}
-                                        style="color: black"
-                                    {% else %}
-                                        style="color: gray"
-                                    {% endif %}>
-                                </a>
+                                <a data-orderby="first_name" data-order="asc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-down ml-2 order"></a>
+                                <a data-orderby="first_name" data-order="desc"href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-up order"></a>
                             </th>
                             <th>Last Name
-                                <a href="?page={{ page_obj.number }}&orderby=last_name&order=asc" class="fas fa-sort-alpha-down ml-2""
-                                    {% if orderby == 'last_name' and order == 'asc' %}
-                                        style="color: black"
-                                    {% else %}
-                                        style="color: gray"
-                                    {% endif %}>
-                                </a>
-                                <a href="?page={{ page_obj.number }}&orderby=last_name&order=desc" class="fas fa-sort-alpha-up ml-2""
-                                    {% if orderby == 'last_name' and order == 'desc' %}
-                                        style="color: black"
-                                    {% else %}
-                                        style="color: gray"
-                                    {% endif %}>
-                                </a>
+                                <a data-orderby="last_name" data-order="asc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-down ml-2 order"></a>
+                                <a data-orderby="last_name" data-order="desc" href="?page={{ page_obj.number }}" class="fas fa-sort-alpha-up order"></a>
                             </th>
                             <th>Address</th>
                             <th>Email</th>

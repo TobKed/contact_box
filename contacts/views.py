@@ -211,7 +211,7 @@ class AddressListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
         params = {
-            'orderby': self.request.GET.get('orderby', 'last_name'),
+            'orderby': self.request.GET.get('orderby', 'city'),
             'order': self.request.GET.get('order', 'asc')
         }
         context_data.update(params)
