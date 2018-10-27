@@ -13,63 +13,60 @@
 
                         <thead>
                             <th>Id</th>
-                            <th>First Name
-                                <a href="?page={{ page_obj.number }}&orderby=first_name&order=asc" class="fas fa-sort-alpha-down ml-2"
-                                    {% if orderby == 'first_name' and order == 'asc' %}
+                            <th>City
+                                <a href="?page={{ page_obj.number }}&orderby=city&order=asc" class="fas fa-sort-alpha-down ml-2"
+                                    {% if orderby == 'city' and order == 'asc' %}
                                         style="color: black"
                                     {% else %}
                                         style="color: gray"
                                     {% endif %}>
                                 </a>
-                                <a href="?page={{ page_obj.number }}&orderby=first_name&order=desc" class="fas fa-sort-alpha-up ml-2"
-                                   {% if orderby == 'first_name' and order == 'desc' %}
-                                        style="color: black"
-                                    {% else %}
-                                        style="color: gray"
-                                    {% endif %}>
-                                </a>
-                            </th>
-                            <th>Last Name
-                                <a href="?page={{ page_obj.number }}&orderby=last_name&order=asc" class="fas fa-sort-alpha-down ml-2""
-                                    {% if orderby == 'last_name' and order == 'asc' %}
-                                        style="color: black"
-                                    {% else %}
-                                        style="color: gray"
-                                    {% endif %}>
-                                </a>
-                                <a href="?page={{ page_obj.number }}&orderby=last_name&order=desc" class="fas fa-sort-alpha-up ml-2""
-                                    {% if orderby == 'last_name' and order == 'desc' %}
+                                <a href="?page={{ page_obj.number }}&orderby=city&order=desc" class="fas fa-sort-alpha-up ml-2"
+                                   {% if orderby == 'city' and order == 'desc' %}
                                         style="color: black"
                                     {% else %}
                                         style="color: gray"
                                     {% endif %}>
                                 </a>
                             </th>
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                            <th>Details</th>
+                            <th>Street
+                                <a href="?page={{ page_obj.number }}&orderby=street&order=asc" class="fas fa-sort-alpha-down ml-2""
+                                    {% if orderby == 'street' and order == 'asc' %}
+                                        style="color: black"
+                                    {% else %}
+                                        style="color: gray"
+                                    {% endif %}>
+                                </a>
+                                <a href="?page={{ page_obj.number }}&orderby=street&order=desc" class="fas fa-sort-alpha-up ml-2""
+                                    {% if orderby == 'street' and order == 'desc' %}
+                                        style="color: black"
+                                    {% else %}
+                                        style="color: gray"
+                                    {% endif %}>
+                                </a>
+                            </th>
+                            <th>Building Number</th>
+                            <th>Flat Number</th>
+                            <th>Inhabitants</th>
                         </thead>
 
                         <tbody>
-                            {% for person in persons %}
+                            {% for address in addresses %}
                                 <tr>
-                                    <td>{{ person.pk }} </td>
-                                    <td>{{ person.first_name }} </td>
-                                    <td>{{ person.last_name }}</td>
-                                    <td>{{ person.address }}</td>
-                                    <td>{{ person.email_set.all|queryset_to_list }}</td>
-                                    <td>{{ person.phonenumber_set.all|queryset_to_list }}</td>
+                                    <td>{{ address.pk }} </td>
+                                    <td>{{ address.city }} </td>
+                                    <td>{{ address.street }}</td>
+                                    <td>{{ address.building_number }}</td>
+                                    <td>{{ address.flat_number }}</td>
+                                    <td>{{ address.inhabitants }}</td>
                                     <td>
-                                        <a href="{% url 'person-update' person.id %}" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
+                                        <a href="#" class="btn btn-primary btn-xs" data-toggle="tooltip" title="Edit"><span class="fas fa-user-edit fa-xs"></span></a>
                                     </td>
                                     <td>
-                                        <a href="{% url 'person-delete' person.id %}" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete"><span class="fas fa-trash-alt fa-xs"></span></a>
+                                        <a href="#" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete"><span class="fas fa-trash-alt fa-xs"></span></a>
                                     </td>
                                     <td>
-                                        <a href="{% url 'person-detail' person.id %}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Info"><span class="fas fa-info xs"></span></a>
+                                        <a href="#" class="btn btn-info btn-xs" data-toggle="tooltip" title="Info"><span class="fas fa-info xs"></span></a>
                                     </td>
                                 </tr>
                             {% endfor %}
