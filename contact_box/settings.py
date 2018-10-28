@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'contact_box.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-
+# POSTGRESQL + environmental variables
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -93,6 +93,14 @@ DATABASES = {
         'PORT': os.environ.get('DATABASE_PORT', ''),
     }
 }
+
+# SQLITE3
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
