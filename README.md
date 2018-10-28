@@ -2,7 +2,8 @@
 Contact box application written in Django
 
 ## Run project
-#### The app is configured to work with PostgresSQL database and it's required to set the following environmental variables:
+#### PostgresSQL
+The app is configured to work with PostgresSQL database and it's required to set the following environmental variables:
 * DJANGO_SECRET_KEY
 * DATABASE_NAME
 * DATABASE_USER
