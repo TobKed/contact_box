@@ -10,7 +10,7 @@
             <p class="article-content">Inhabitants ({{ inhabitants.count }}):
                 <ul>
                     {% for person in inhabitants %}
-                        <li>{{ person }}</li>
+                        <li><a href="{% url 'person-detail' person.id %}">{{ person }}</a></li>
                     {% empty %}
                         <li>No inhabitants</li>
                     {% endfor %}

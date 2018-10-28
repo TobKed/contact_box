@@ -4,7 +4,13 @@
         <div class="media-body">
             <h2 class="article-title">{{ object.first_name }} {{ object.last_name }}</h2>
             <p class="article-content">Description: {{ object.description }}</p>
-            <p class="article-content">Adress: {{ object.address }}</p>
+            <p class="article-content">Adress:
+                {% if object.address %}
+                    <a href="{% url 'address-detail' object.address_id %}" class="ml-2">{{ object.address }}</a>
+                {% else %}
+                    None
+                {% endif %}
+            </p>
             <p class="article-content">Phones:
                 <ul>
                     {% for object in object.phonenumber_set.all%}
@@ -20,6 +26,15 @@
                         <li>{{ object }}</li>
                     {% empty %}
                         <li>No emails</li>
+                    {% endfor %}
+                </ul>
+            </p>
+            <p class="article-content">Groups:
+                <ul>
+                    {% for group in object.groups.all %}
+                        <li><a href="{% url 'group-detail' group.id %}">{{ group }}</a></li>
+                    {% empty %}
+                        <li>Not a member of any group</li>
                     {% endfor %}
                 </ul>
             </p>
