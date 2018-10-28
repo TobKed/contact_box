@@ -19,7 +19,7 @@ def home(request):
 
 
 def is_user_a_creator(obj):
-    """  function used in test_func() is views which inherits UserPassesTestMixin """
+    """  function used in test_func() in views which inherits UserPassesTestMixin """
     person = obj.get_object()
     if obj.request.user.pk == person.creator_id:
         return True
