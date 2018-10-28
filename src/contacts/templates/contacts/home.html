@@ -1,4 +1,29 @@
 {% extends "contacts/base.html" %}
 {% block content %}
+    <div class="jumbotron bg-steel-2 text-center">
+        <h1 class="display-4">Welcome in Contact Box</h1>
+        <p class="lead">This app allows you manage your contacts.</p>
+        <hr class="my-4">
+        {% if user.is_authenticated %}
+            <p class="lead">
+                <p class="mb-4">So. What do you want to do?</p>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'person-list' %}" role="button">Contacts</a>
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'address-list' %}" role="button">Addresses</a>
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'group-list' %}" role="button">Groups</a>
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'profile' %}" role="button">Profile</a>
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'logout' %}" role="button">Logout</a>
+                </div>
+            </p>
+        {% else %}
+            <p class="lead">
+                <p class="mb-4">Login or register for further action.</p>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'login' %}" role="button">Login</a>
+                    <a class="btn btn-lg btn-info mx-2" href="{% url 'register' %}" role="button">Register</a>
+                </div>
+            </p>
+        {% endif %}
 
+    </div>
 {% endblock content %}

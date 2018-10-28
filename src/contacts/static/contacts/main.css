@@ -18,6 +18,10 @@ ul {
   background-color: #138493;
 }
 
+.bg-steel-2 {
+  background-color: #EAF1F2;
+}
+
 .site-header .navbar-nav .nav-link {
   color: #cbd5db;
 }

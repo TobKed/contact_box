@@ -15,7 +15,7 @@ from django.db.models import Count
 
 
 def home(request):
-    return render(request, 'contacts/base.html')
+    return render(request, 'contacts/home.html')
 
 
 class PersonListView(LoginRequiredMixin, ListView):
