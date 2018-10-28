@@ -36,3 +36,15 @@ $ pip install -r requirements.txt
 #### Database visualisation
 
 ![alt text](/img/contact_box_visualized.png)
+
+#### Django lessons learned
+* user authentication
+* generic views and mixins
+* forms, formsets, inline formsets
+* custom template filters
+* paginaton
+* crispy forms
+* django debug toolbar
+* email backend (password recovery)
+* graph models (pygraphviz)
+* signals
