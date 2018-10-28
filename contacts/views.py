@@ -18,6 +18,14 @@ def home(request):
     return render(request, 'contacts/home.html')
 
 
+def is_user_a_creator(obj):
+    """  function used in test_func() is views which inherits UserPassesTestMixin """
+    person = obj.get_object()
+    if obj.request.user.pk == person.creator_id:
+        return True
+    return False
+
+
 class PersonListView(LoginRequiredMixin, ListView):
     model = Person
     context_object_name = 'persons'
@@ -44,10 +52,7 @@ class PersonDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Person
 
     def test_func(self):
-        person = self.get_object()
-        if self.request.user.pk == person.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class PersonCreateView(LoginRequiredMixin, CreateView):
@@ -177,10 +182,7 @@ class PersonUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
                                   email_form=email_form))
 
     def test_func(self):
-        person = self.get_object()
-        if self.request.user.pk == person.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -188,10 +190,7 @@ class PersonDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = '/'
 
     def test_func(self):
-        person = self.get_object()
-        if self.request.user.pk == person.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class AddressListView(LoginRequiredMixin, ListView):
@@ -240,10 +239,7 @@ class AddressDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = '/'
 
     def test_func(self):
-        person = self.get_object()
-        if self.request.user.pk == person.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class AddressCreateView(LoginRequiredMixin, CreateView):
@@ -268,10 +264,7 @@ class AddressUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def test_func(self):
-        person = self.get_object()
-        if self.request.user.pk == person.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class ContactGroupListView(LoginRequiredMixin, ListView):
@@ -310,10 +303,7 @@ class ContactGroupDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView
         return context_data
 
     def test_func(self):
-        contactgroup = self.get_object()
-        if self.request.user.pk == contactgroup.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class ContactGroupDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -321,10 +311,7 @@ class ContactGroupDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView
     success_url = '/'
 
     def test_func(self):
-        group = self.get_object()
-        if self.request.user.pk == group.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class ContactGroupCreateView(LoginRequiredMixin, CreateView):
@@ -349,7 +336,4 @@ class ContactGroupUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
         return HttpResponseRedirect(self.get_success_url())
 
     def test_func(self):
-        group = self.get_object()
-        if self.request.user.pk == group.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
