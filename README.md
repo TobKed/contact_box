@@ -1,8 +1,8 @@
 # contact_box
 Contact box application written in Django
 
-
-### The app is configured to work with Postgres database and it's required to set the following environmental variables:
+## Run project
+#### The app is configured to work with PostgresSQL database and it's required to set the following environmental variables:
 * DJANGO_SECRET_KEY
 * DATABASE_NAME
 * DATABASE_USER
@@ -18,3 +18,20 @@ export DATABASE_USER='<fill>'
 export DATABASE_PASSWORD='<fill>'
 export DATABASE_HOST='<fill>'
 ```
+
+#### SQLite3
+
+You can use SQLite3 as well. Default settings are commented-out. Just uncomment them and delete/comment previous database settings.
+WARNING! You still have to set environmental variable for DJANGO_SECRET_KEY.
+
+#### Dependencies
+
+```bash
+$ cd src
+$ pip install -r requirements.txt
+```
+
+## Project details
+#### Database visualisation
+
+![alt text](/img/contact_box_visualized.png)
