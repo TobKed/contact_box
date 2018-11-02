@@ -32,6 +32,22 @@ class ContactGroup(models.Model):
         return reverse("group-detail", kwargs={"pk": self.pk})
 
 
+class AddressQuerySet(models.QuerySet):
+    def search(self, search=None):
+        if search:
+            return self.filter(city__contains=search) \
+                   | self.filter(street__contains=search)
+        return self
+
+
+class AddressManager(models.Manager):
+    def get_queryset(self):
+        return AddressQuerySet(self.model, using=self._db)
+
+    def search(self, search):
+        return self.get_queryset().search(search=search)
+
+
 class Address(models.Model):
     city = models.CharField(max_length=64)
     street = models.CharField(max_length=64, null=True, blank=True)
@@ -39,11 +55,30 @@ class Address(models.Model):
     flat_number = models.IntegerField(null=True, blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
+    objects = AddressManager()
+
     def __str__(self):
         return f"{self.city} {self.street} {self.building_number} {self.flat_number}"
 
     def get_absolute_url(self):
         return reverse("address-detail", kwargs={"pk": self.pk})
+
+
+class PersonQuerySet(models.QuerySet):
+    def search(self, search=None):
+        if search:
+            queryset = self.filter(first_name__contains=search) \
+                   | self.filter(last_name__contains=search)
+            return queryset.distinct()
+        return self
+
+
+class PersonManager(models.Manager):
+    def get_queryset(self):
+        return PersonQuerySet(self.model, using=self._db)
+
+    def search(self, search):
+        return self.get_queryset().search(search=search)
 
 
 class Person(models.Model):
@@ -53,6 +88,8 @@ class Person(models.Model):
     address = models.ForeignKey(Address, null=True,blank=True, on_delete=models.SET_NULL)
     groups = models.ManyToManyField(ContactGroup, null=True, blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    objects = PersonManager()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

@@ -6,8 +6,16 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h4>Contacts ({{ page_obj.paginator.count }})</h4>
-                <div type="hidden" id="order-manager" data-orderby="{{ orderby }}" data-order="{{ order }}"></div>
+                <div class="container d-flex justify-content-between">
+                    <h4 class="d-inline-block mt-2">Contacts ({{ page_obj.paginator.count }})</h4>
+                    <form class="form-inline align-self-start" method="GET">
+                      <input class="form-control" name="search" type="text" placeholder="Search" aria-label="Search" {% if search %} value="{{ search }}" {% endif %}>
+                      <button class="btn btn-info mx-2" type="submit" href="">Search</button>
+                    </form>
+                </div>
+
+                <div type="hidden" id="order-manager" data-orderby="{{ orderby }}" data-order="{{ order }}" data-search="{{ search }}"></div>
+
                 <div class="table-responsive">
 
                     <table id="mytable" class="table table-bordred table-striped">
