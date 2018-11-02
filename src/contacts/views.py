@@ -277,7 +277,8 @@ class ContactGroupListView(LoginRequiredMixin, ListView):
         orderby = self.request.GET.get('orderby', 'name')
         order = self.request.GET.get('order', 'asc')
         order = {'asc': '', 'desc': '-'}.get(order, '')
-        return ContactGroup.objects.filter(creator=user.profile).annotate(
+        search = self.request.GET.get('search')
+        return ContactGroup.objects.filter(creator=user.profile).search(search=search).annotate(
             members=Count('person', distinct=True)
             ).order_by(order+orderby)
 
@@ -285,7 +286,8 @@ class ContactGroupListView(LoginRequiredMixin, ListView):
         context_data = super().get_context_data(*args, **kwargs)
         params = {
             'orderby': self.request.GET.get('orderby', 'name'),
-            'order': self.request.GET.get('order', 'asc')
+            'order': self.request.GET.get('order', 'asc'),
+            'search': self.request.GET.get('search')
         }
         context_data.update(params)
         return context_data

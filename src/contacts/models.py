@@ -3,10 +3,27 @@ from users.models import Profile
 from django.urls import reverse
 
 
+class ContactGroupQuerySet(models.QuerySet):
+    def search(self, search=None):
+        if search:
+            return self.filter(name__contains=search) | self.filter(description__contains=search)
+        return self
+
+
+class ContactGroupManager(models.Manager):
+    def get_queryset(self):
+        return ContactGroupQuerySet(self.model, using=self._db)
+
+    def search(self, search):
+        return self.get_queryset().search(search=search)
+
+
 class ContactGroup(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField(null=True, blank=True)
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    objects = ContactGroupManager()
 
     def __str__(self):
         return f"{self.name}"

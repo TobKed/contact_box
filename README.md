@@ -40,6 +40,7 @@ $ pip install -r requirements.txt
 #### Django lessons learned
 * user authentication
 * generic views and mixins
+* custom model managers and querysets
 * forms, formsets, inline formsets
 * custom template filters
 * paginaton
