@@ -36,13 +36,15 @@ class PersonListView(LoginRequiredMixin, ListView):
         orderby = self.request.GET.get('orderby', 'last_name')
         order = self.request.GET.get('order', 'asc')
         order = {'asc': '', 'desc': '-'}.get(order, '')
-        return Person.objects.filter(creator=user.profile).order_by(order+orderby)
+        search = self.request.GET.get('search')
+        return Person.objects.filter(creator=user.profile).search(search=search).order_by(order+orderby)
 
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
         params = {
             'orderby': self.request.GET.get('orderby', 'last_name'),
-            'order': self.request.GET.get('order', 'asc')
+            'order': self.request.GET.get('order', 'asc'),
+            'search': self.request.GET.get('search')
         }
         context_data.update(params)
         return context_data
@@ -203,7 +205,8 @@ class AddressListView(LoginRequiredMixin, ListView):
         orderby = self.request.GET.get('orderby', 'city')
         order = self.request.GET.get('order', 'asc')
         order = {'asc': '', 'desc': '-'}.get(order, '')
-        return Address.objects.filter(creator=user.profile).annotate(
+        search = self.request.GET.get('search')
+        return Address.objects.filter(creator=user.profile).search(search=search).annotate(
             inhabitants=Count('person', distinct=True)
             ).order_by(order+orderby)
 
@@ -211,7 +214,8 @@ class AddressListView(LoginRequiredMixin, ListView):
         context_data = super().get_context_data(*args, **kwargs)
         params = {
             'orderby': self.request.GET.get('orderby', 'city'),
-            'order': self.request.GET.get('order', 'asc')
+            'order': self.request.GET.get('order', 'asc'),
+            'search': self.request.GET.get('search')
         }
         context_data.update(params)
         return context_data
