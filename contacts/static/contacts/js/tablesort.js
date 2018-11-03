@@ -27,7 +27,7 @@ $( document ).ready(function() {
             let sortElementOrder = $(this).data('order');
             let href = $(this).attr('href');
             let newHref = href + '&orderby=' + sortElementOrderBy + '&order=' + sortElementOrder;
-            if (search !== undefined) newHref += '&search=' + search;
+            if (search != "None") newHref += '&search=' + search;
             $(this).attr('href', newHref);
             if ((sortElementOrderBy == orderby) && (sortElementOrder == order)) {
                 $(this).addClass('order-active')
