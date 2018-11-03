@@ -38,14 +38,18 @@ $ pip install -r requirements.txt
 ![alt text](/img/contact_box_visualized.png)
 
 #### Django lessons learned
-* user authentication
-* generic views and mixins
-* custom model managers and querysets
-* forms, formsets, inline formsets
-* custom template filters
-* paginaton
-* crispy forms
-* django debug toolbar
-* email backend (password recovery)
-* graph models (pygraphviz)
-* signals
+* User authentication
+* Generic views and mixins
+* Custom model managers and querysets
+* Forms, formsets, inline formsets
+* Custom template filters
+* Paginaton
+* Crispy forms
+* Django debug toolbar
+* Email backend (password recovery)
+* Graph models ([pygraphviz](https://django-extensions.readthedocs.io/en/latest/graph_models.html))
+* Signals
+
+#### Other lessons learned
+* Responsive Web Design (Bootstrap)
+* Heroku deployment
