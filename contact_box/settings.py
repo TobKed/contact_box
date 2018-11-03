@@ -147,9 +147,12 @@ LOGIN_REDIRECT_URL = 'contacts-home'
 LOGIN_URL = 'login'
 
 # console backend  # https://docs.djangoproject.com/en/2.1/topics/email/#configuring-email-for-development
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-INTERNAL_IPS = ['127.0.0.1']
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
