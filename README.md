@@ -9,6 +9,8 @@ The app is configured to work with PostgresSQL database and it's required to set
 * DATABASE_USER
 * DATABASE_PASSWORD
 * DATABASE_HOST
+* EMAIL_USER
+* EMAIL_PASS
 
 You can take this code, put it in your text editor, fill values and paste to terminal
 
@@ -18,6 +20,8 @@ export DATABASE_NAME='<fill>'
 export DATABASE_USER='<fill>'
 export DATABASE_PASSWORD='<fill>'
 export DATABASE_HOST='<fill>'
+export EMAIL_USER='<fill>'
+export EMAIL_PASS='<fill>'
 ```
 
 #### SQLite3
@@ -43,7 +47,7 @@ $ pip install -r requirements.txt
 * Custom model managers and querysets
 * Forms, formsets, inline formsets
 * Custom template filters
-* Paginaton
+* Pagination
 * Crispy forms
 * Django debug toolbar
 * Email backend (password recovery)
