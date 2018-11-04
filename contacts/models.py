@@ -6,7 +6,7 @@ from django.urls import reverse
 class ContactGroupQuerySet(models.QuerySet):
     def search(self, search=None):
         if search:
-            return self.filter(name__contains=search) | self.filter(description__contains=search)
+            return self.filter(name__icontains=search) | self.filter(description__icontains=search)
         return self
 
 
@@ -35,8 +35,8 @@ class ContactGroup(models.Model):
 class AddressQuerySet(models.QuerySet):
     def search(self, search=None):
         if search:
-            return self.filter(city__contains=search) \
-                   | self.filter(street__contains=search)
+            return self.filter(city__icontains=search) \
+                   | self.filter(street__icontains=search)
         return self
 
 
@@ -67,8 +67,8 @@ class Address(models.Model):
 class PersonQuerySet(models.QuerySet):
     def search(self, search=None):
         if search:
-            queryset = self.filter(first_name__contains=search) \
-                   | self.filter(last_name__contains=search)
+            queryset = self.filter(first_name__icontains=search) \
+                   | self.filter(last_name__icontains=search)
             return queryset.distinct()
         return self
 
