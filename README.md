@@ -4,6 +4,7 @@ Contact box application written in Django
 ## Run project
 #### PostgresSQL
 The app is configured to work with PostgresSQL database and it's required to set the following environmental variables:
+* DJANGO_DEBUG
 * DJANGO_SECRET_KEY
 * DATABASE_NAME
 * DATABASE_USER
@@ -15,6 +16,7 @@ The app is configured to work with PostgresSQL database and it's required to set
 You can take this code, put it in your text editor, fill values and paste to terminal
 
 ```
+export DJANGO_DEBUG='<fill>'
 export DJANGO_SECRET_KEY='<fill>'
 export DATABASE_NAME='<fill>'
 export DATABASE_USER='<fill>'
