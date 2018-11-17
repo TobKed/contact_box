@@ -232,10 +232,7 @@ class AddressDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return context_data
 
     def test_func(self):
-        address = self.get_object()
-        if self.request.user.pk == address.creator_id:
-            return True
-        return False
+        return is_user_a_creator(self)
 
 
 class AddressDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
